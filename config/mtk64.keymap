@@ -1,5 +1,5 @@
 /*
- * mtk64ebt 用キーマップ: Keyball44 (Remap チートシート) ベース + 個別調整 (第4版)
+ * mtk64ebt 用キーマップ: Keyball44 (Remap チートシート) ベース + 個別調整 (第6版)
  *
  * 置き場所: フォークした zmk-config-mtk64 の config/mtk64.keymap (上書き)
  * 対象ブランチ: right_left_rev4 (右手ボール・Bluetooth 直結)
@@ -71,30 +71,17 @@
 };
 
 / {
-    macros {
-        // 「」キー: JIS の [ と ] を続けて入力する (日本語入力中は「」になる)
-        kagi_pair: kagi_pair {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <15>;
-            tap-ms = <15>;
-            bindings = <&macro_tap &kp JP_LBKT &kp JP_RBKT>;
-        };
-    };
-};
-
-/ {
 
     keymap {
         compatible = "zmk,keymap";
 
-        // ===== レイヤー0: Keyball Layer 0 + 調整 (: / BS / Del / 「」 / Space / PrintScreen / 右クリック / Enter / L1切替) =====
+        // ===== レイヤー0: Keyball Layer 0 + 調整 (: / Space / PrintScreen / 右クリック / Enter / L1切替。右端は上から ・(JIS の / キー) / BS / Del / 右Shift) =====
         default_layer {
             display-name = "L0";
             bindings = <
-&kp ESC      &kp N1    &kp N2  &kp N3     &kp N4  &kp N5                                  &kp N6     &kp N7    &kp N8     &kp N9  &kp N0  &kp BSPC
-&kp JP_ZKHK  &kp Q     &kp L   &kp U      &kp JP_COLON  &kp JP_EXCL                             &kp F      &kp W     &kp R      &kp Y   &kp P   &kp DEL
-&kp JP_HENK  &kp E     &kp I   &kp A      &kp O   &kp JP_MINUS                            &kp K      &kp T     &kp N      &kp S   &kp H   &kagi_pair
+&kp ESC      &kp N1    &kp N2  &kp N3     &kp N4  &kp N5                                  &kp N6     &kp N7    &kp N8     &kp N9  &kp N0  &kp JP_SLASH
+&kp JP_ZKHK  &kp Q     &kp L   &kp U      &kp JP_COLON  &kp JP_EXCL                             &kp F      &kp W     &kp R      &kp Y   &kp P   &kp BSPC
+&kp JP_HENK  &kp E     &kp I   &kp A      &kp O   &kp JP_MINUS                            &kp K      &kp T     &kp N      &kp S   &kp H   &kp DEL
 &kp LCTRL    &kp Z     &kp X   &kp C      &kp V   &kp JP_QMARK  &kp SPACE           &mo 4     &kp G      &kp D     &kp M      &kp J   &kp B   &kp RSHFT
 &mo 3        &kp LGUI                             &kp COMMA     &kp DOT         &mkp MB2 &kp ENTER                                &mo 1   &to 4
                        &tog 2  &kp ENTER                        &kp PSCRN       &mkp MB1                       &kp ENTER  &tog 2
@@ -151,9 +138,9 @@
             display-name = "L3";
             bindings = <
 &trans     &trans   &trans   &trans   &trans   &trans                               &trans   &trans   &trans   &trans   &trans   &trans
-&kp BSPC   &kp F1   &kp F2   &kp F3   &kp F4   &kp F5                               &kp F6   &kp F7   &kp F8   &kp F9   &kp F10  &kp BSPC
-&trans     &kp F11  &kp F12  &kp F13  &kp F14  &kp F15                              &kp F16  &kp F17  &kp F18  &kp F19  &kp F20  &kp DEL
-&kp RSHFT  &kp F21  &kp F22  &kp F23  &kp F24  &trans   &to 4            &trans     &trans   &kp N9   &kp O    &kp L    &kp DOT  &kp RSHFT
+&kp BSPC   &kp F1   &kp F2   &kp F3   &kp F4   &kp F5                               &kp F6   &kp F7   &kp F8   &kp F9   &kp F10  &trans
+&trans     &kp F11  &kp F12  &kp F13  &kp F14  &kp F15                              &kp F16  &kp F17  &kp F18  &kp F19  &kp F20  &trans
+&kp RSHFT  &kp F21  &kp F22  &kp F23  &kp F24  &trans   &to 4            &trans     &trans   &kp N9   &kp O    &kp L    &kp DOT  &trans
 &trans     &trans                              &kp N4   &kp N7           &kp ENTER  &kp RALT                            &trans   &trans
                     &trans   &trans                     &kp SPACE        &to 0                        &trans   &trans
                                                         &mo 3            &trans
@@ -190,7 +177,7 @@
 
         // ===== レイヤー5: Keyball Layer 2 (記号・右手テンキー) =====
         // 左端の上段・下段は Remap の表示どおり「長押し = 修飾キー / タップ = 括弧」
-        // 右手: 右端はレイヤー0 と同じ (&trans) / 右から2列目は上から ÷ × − + / 数字は電卓配列のまま1列左へ
+        // 右手: 右端はレイヤー0 と同じ (&trans) / 右から2列目は上から ÷ × − + = / 数字は電卓配列のまま1列左へ
         layer_5 {
             display-name = "L2";
             bindings = <
@@ -198,7 +185,7 @@
 &mt RCTRL JP_RPAR    &kp RS(N6)    &kp JP_YEN  &kp JP_SEMI  &kp JP_COLON  &kp RS(N1)                                 &kp RS(N8)   &kp N7       &kp N8  &kp N9  &kp RS(JP_COLON) &trans
 &kp TAB              &kp RS(N5)    &kp JP_DLLR &kp JP_AT    &kp JP_SQT    &kp JP_TILDE                               &kp RS(N9)   &kp N4       &kp N5  &kp N6  &kp JP_MINUS     &trans
 &mt LSHFT JP_LPAR    &kp JP_UNDER  &kp JP_LT   &kp JP_RT    &kp JP_DQT    &kp JP_PIPE   &to 3           &trans       &kp N0       &kp N1       &kp N2  &kp N3  &kp RS(JP_SEMI)  &trans
-&trans               &trans                                               &kp COMMA     &kp DOT         &kp ENTER    &kp RS(JP_MINUS)                          &trans           &trans
+&trans               &trans                                               &kp COMMA     &kp DOT         &kp ENTER    &kp ENTER                                 &kp RS(JP_MINUS) &trans
                                    &trans      &trans                                   &none           &to 0                                  &trans  &trans
                                                                                         &trans          &trans
                      &trans        &trans      &trans                                                                                          &trans  &trans  &trans
